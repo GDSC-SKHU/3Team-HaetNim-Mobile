@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:untitled1/table_calender.dart';
+import 'package:untitled1/main.dart';
+import 'package:untitled1/login.dart';
 
 
 // StatefulWidget 상속받는 TodoPage 클래스 생성
@@ -19,14 +20,70 @@ class _TodoPageState extends State<TodoPage> {
   @override
   void initState() {
     super.initState();
-    todos.add("Item1");
-    todos.add("Item2");
+    todos.add("18:10 GDSC 세션");
+    todos.add("미니 프로젝트 완성하기");
   }
 
   // material design = 구글 디자인 컨셉
   @override
   Widget build(BuildContext context) {
     return Scaffold(  //Scaffold는 appBar, body라는 옵션
+      appBar: AppBar( 
+        title: Text('너할일햇님'),
+        ),
+      // 사이드메뉴 열기
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('assetName'),
+              ),
+            accountName: Text('UserName'),
+            accountEmail: Text('UserEmail@gmail.com'),
+            onDetailsPressed: (){},
+            decoration: BoxDecoration(
+              color: Colors.orange[700],
+              borderRadius: BorderRadius.only()
+            ),
+            ),
+            ListTile(
+              leading: Icon(Icons.perm_contact_cal, color: Colors.orange[700]),
+              title: Text('Login'),
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => LoginPage()));
+                  },
+            ),
+            ListTile(
+              leading: Icon(Icons.home, color: Colors.orange[700]),
+              title: Text('Home'),
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => MyHomePage()));
+                  }
+            ),
+            ListTile(
+              leading: Icon(Icons.rocket_launch, color: Colors.orange[700]),
+              title: Text('Rocket'),
+              onTap: (){
+                // Navigator.push(context, MaterialPageRoute(
+                //   builder: (context) => RocketPage())),
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.assignment, color: Colors.orange[700]),
+              title: Text('Todo'),
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => TodoPage()));
+              },
+              trailing: Icon(Icons.add),
+            ),
+            ],
+          ),
+        ),
 
     
 
