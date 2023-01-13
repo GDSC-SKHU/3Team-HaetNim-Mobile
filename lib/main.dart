@@ -88,13 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
 
       // Calendar View + Todo View
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          CalendarPage(),
+      body: CalendarPage(),
           // ShowTodo() //todolist 보여주는 클래스 구현하기
-          ]
-        )
     );
   }
 
