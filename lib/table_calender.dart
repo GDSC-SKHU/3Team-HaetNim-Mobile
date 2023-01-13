@@ -12,45 +12,13 @@ class CalendarPage extends StatefulWidget {
   State<CalendarPage> createState() => _CalendarPageState();
 }
 
-// 왜 이부분에서 에러 나는지 해결방법을 모르겠음
 class _CalendarPageState extends State<CalendarPage> {
-  TextEditingController _DataTimeEditingController = TextEditingController();
-  TextEditingController _EstimatedEditingController = TextEditingController();
+  final TextEditingController _DataTimeEditingController = TextEditingController();
+  final TextEditingController _EstimatedEditingController = TextEditingController();
 
   DateTime? tempPickedDate;
 
-  final _todoController = TextEditingController();
-    List<String> _todoList = [];
 
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        // appBar: AppBar(title: Text("Calendar Event")),
-        body: Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: _todoList.length,
-                itemBuilder: (context, index) => ListTile(
-                  title: Text(_todoList[index]),
-                ),
-              ),
-            ),
-            TextField(
-              controller: _todoController,
-              decoration: InputDecoration(hintText: "Enter a task"),
-              onSubmitted: (value) {
-                setState(() {
-                  _todoList.add(value);
-                  _todoController.clear();
-                });
-              },
-            ),
-          ],
-        ),
-      );
-    }
-  }
 
 
   @override
@@ -163,7 +131,7 @@ class _CalendarPageState extends State<CalendarPage> {
     final DateFormat displayFormater = DateFormat('yyyy-MM-dd HH:mm:ss.SSS');
     final DateFormat serverFormater = DateFormat('yyyy-MM-dd');
     final DateTime displayDate = displayFormater.parse(date);
-    if (text == '방문') {
+    if (text == '선택') {
       _EstimatedEditingController.clear();
       return _DataTimeEditingController.text =
           serverFormater.format(displayDate);
