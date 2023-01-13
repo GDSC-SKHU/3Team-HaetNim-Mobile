@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:untitled1/login.dart';
-// import 'package:untitled1/todo.dart';
+import 'package:untitled1/todo_example.dart';
 import 'table_calender.dart';
+
+
 
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false, 
@@ -22,11 +24,6 @@ class MyHomePage extends StatefulWidget {
 
 
 class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _DataTimeEditingController = TextEditingController();
-  final TextEditingController _EstimatedEditingController = TextEditingController();
-
-  DateTime? tempPickedDate;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +76,15 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text('Rocket'),
               onTap: (){
                 // Navigator.push(context, MaterialPageRoute(
-                //   builder: (context) => RocketPage())),
+                //   builder: (context) => RocketPage()));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.assignment, color: Colors.orange[700]),
+              title: Text('Todo'),
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => TodoPage()));
               },
               trailing: Icon(Icons.add),
             ),
