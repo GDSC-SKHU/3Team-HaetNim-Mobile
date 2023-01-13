@@ -1,11 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:untitled1/login.dart';
-import 'package:untitled1/homecalender.dart';
-import 'package:untitled1/hometodo.dart';
+// import 'package:untitled1/todo.dart';
+import 'table_calender.dart';
 
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false, 
@@ -13,7 +9,7 @@ void main() => runApp(MaterialApp(
     colorScheme: ColorScheme.fromSwatch(
       brightness: Brightness.light, 
       primarySwatch: Colors.orange,
-      accentColor: Colors.yellow),
+      accentColor: Color.fromARGB(255, 255, 204, 0)),
   ),
   home: MyHomePage(),
 ));
@@ -91,14 +87,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
 
-      // Calendar View
-      body: SafeArea(
-        child: Column(
-          children: const <Widget> [
-            CalendarPage(),
-            TodoPage(),
-          ],
-        ))
+      // Calendar View + Todo View
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          CalendarPage(),
+          // ShowTodo() //todolist 보여주는 클래스 구현하기
+          ]
+        )
     );
   }
 

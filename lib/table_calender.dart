@@ -5,17 +5,53 @@ import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 
+
 class CalendarPage extends StatefulWidget {
   const CalendarPage({Key? key}) : super(key: key);
   @override
   State<CalendarPage> createState() => _CalendarPageState();
 }
 
+// 왜 이부분에서 에러 나는지 해결방법을 모르겠음
 class _CalendarPageState extends State<CalendarPage> {
-  final TextEditingController _DataTimeEditingController = TextEditingController();
-  final TextEditingController _EstimatedEditingController = TextEditingController();
+  TextEditingController _DataTimeEditingController = TextEditingController();
+  TextEditingController _EstimatedEditingController = TextEditingController();
 
   DateTime? tempPickedDate;
+
+  final _todoController = TextEditingController();
+    List<String> _todoList = [];
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        // appBar: AppBar(title: Text("Calendar Event")),
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: _todoList.length,
+                itemBuilder: (context, index) => ListTile(
+                  title: Text(_todoList[index]),
+                ),
+              ),
+            ),
+            TextField(
+              controller: _todoController,
+              decoration: InputDecoration(hintText: "Enter a task"),
+              onSubmitted: (value) {
+                setState(() {
+                  _todoList.add(value);
+                  _todoController.clear();
+                });
+              },
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +68,7 @@ class _CalendarPageState extends State<CalendarPage> {
             GestureDetector(
               onTap: () {
                 HapticFeedback.mediumImpact();
+                // calendar popup
                 _selectDataCalendar_Expecteddate_visit(context);
               },
               child: AbsorbPointer(
@@ -62,19 +99,20 @@ class _CalendarPageState extends State<CalendarPage> {
           ),
         ),
       ),
-
     );
+
   }
 
 
-//캘린더 가져오기
+  // 캘린더 가져오기
+  // ignore: non_constant_identifier_names
   void _selectDataCalendar_Expecteddate_visit(BuildContext context) {
     showCupertinoDialog(
         context: context,
         builder: (context) {
           return SafeArea(
-              child: Center(
-            child: Container(
+            child: Center(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width / 1.1,
               height: 550,
               child: SfDateRangePicker(
@@ -85,7 +123,7 @@ class _CalendarPageState extends State<CalendarPage> {
                 showNavigationArrow: true,
                 headerStyle: DateRangePickerHeaderStyle(
                   textAlign: TextAlign.center,
-                  textStyle: TextStyle(fontSize: 25, color: Colors.blueAccent),
+                  textStyle: TextStyle(fontSize: 25, color: Colors.redAccent),
                 ),
                 headerHeight: 80,
                 view: DateRangePickerView.month,
@@ -94,22 +132,24 @@ class _CalendarPageState extends State<CalendarPage> {
                 initialSelectedDate: DateTime.now(),
                 minDate: DateTime.now(),
                 // 아래코드는 tempPickedDate를 전역으로 받아 시작일을 선택한 날자로 시작할 수 있음
-                //minDate: tempPickedDate,
-                maxDate: DateTime.now().add(new Duration(days: 365)),
+                // minDate: tempPickedDate,
+                maxDate: DateTime.now().add(Duration(days: 365)),
                 // 아래 코드는 선택시작일로부터 2주까지밖에 날자 선택이 안됌
-                //maxDate: tempPickedDate!.add(new Duration(days: 14)),
+                // maxDate: tempPickedDate!.add(new Duration(days: 14)),
                 selectionMode: DateRangePickerSelectionMode.single,
                 confirmText: '완료',
                 cancelText: '취소',
                 onSubmit: (args) => {
                   setState(() {
                     _EstimatedEditingController.clear();
-                    //tempPickedDate = args as DateTime?;
+                    // tempPickedDate = args as DateTime?;
                     _DataTimeEditingController.text = args.toString();
                     convertDateTimeDisplay(
-                        _DataTimeEditingController.text, '방문');
+                        _DataTimeEditingController.text, '선택');
                     Navigator.of(context).pop();
                   }),
+                  
+
                 },
                 onCancel: () => Navigator.of(context).pop(),
                 showActionButtons: true,
@@ -127,8 +167,10 @@ class _CalendarPageState extends State<CalendarPage> {
       _EstimatedEditingController.clear();
       return _DataTimeEditingController.text =
           serverFormater.format(displayDate);
-    } else
+    } else {
       return _EstimatedEditingController.text =
           serverFormater.format(displayDate);
+    }
   }
 }
+
