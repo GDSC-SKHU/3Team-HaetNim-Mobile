@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
+// 캘린더에 아무런 이벤트 없음
 
 
 class CalendarPage extends StatefulWidget {
